@@ -1,0 +1,7 @@
+{
+  "name": "purple-edge-mirror",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  }
+}
