@@ -40,5 +40,6 @@ _Reverse-chronological record of changes. Add new entries at the top._
 
 | Date       | Change | Details |
 |------------|--------|---------|
+| 2026-04-06 | Auth origin check fix | Relaxed same-origin POST validation in `server.js` to allow same-host HTTPS origins when TLS is terminated before Node and `x-forwarded-proto` is missing, fixing false `Invalid request origin` errors on deployed auth requests like username availability |
 | 2026-04-06 | Local auth backend | Added same-origin `/api/auth` handlers in `server.js` for sign-up, sign-in, sign-out, session lookup, username availability, and OTP password reset; patched auth bundles to stop using `api.purpleedge.io`, removed the hardcoded `purpleedge.io` login callback base, and redirected the logged-in login page CTA to `/` |
 | 2026-04-03 | Initial documentation | Created `README.md` and `WEBSITE-CONTEXT.md` to track project context and changes |

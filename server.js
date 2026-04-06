@@ -289,7 +289,18 @@ function isTrustedOrigin(request) {
   }
 
   try {
-    return new URL(request.headers.origin).origin === requestOrigin;
+    const originUrl = new URL(request.headers.origin);
+    const requestUrl = new URL(requestOrigin);
+
+    if (originUrl.origin === requestUrl.origin) {
+      return true;
+    }
+
+    // Allow same-host HTTPS origins when TLS is terminated before Node and the proxy
+    // does not forward x-forwarded-proto, causing the server to see the request as HTTP.
+    return originUrl.host === requestUrl.host
+      && originUrl.protocol === "https:"
+      && requestUrl.protocol === "http:";
   } catch (error) {
     return false;
   }
