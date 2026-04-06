@@ -29,6 +29,8 @@ _Key architectural and design choices and their reasoning._
 | Pre-built HTML pages | Pages are exported/built externally and dropped into the project as static files |
 | `_next/` directory for assets | Assets follow Next.js export conventions from the original build source |
 | OTP email templating in `server.js` | The verify-otp page needs the email address injected server-side via query param |
+| Same-origin auth in `server.js` | Auth now runs from local `/api/auth` endpoints with hashed passwords, HttpOnly session cookies, username checks, and OTP-based password resets so the site no longer depends on external auth hosts |
+| Runtime auth persistence in `data/auth-store.json` | User, session, and OTP records are stored locally by the Node server; the `data/` directory is git-ignored to avoid committing runtime auth data |
 
 ---
 
@@ -38,4 +40,5 @@ _Reverse-chronological record of changes. Add new entries at the top._
 
 | Date       | Change | Details |
 |------------|--------|---------|
+| 2026-04-06 | Local auth backend | Added same-origin `/api/auth` handlers in `server.js` for sign-up, sign-in, sign-out, session lookup, username availability, and OTP password reset; patched auth bundles to stop using `api.purpleedge.io`, removed the hardcoded `purpleedge.io` login callback base, and redirected the logged-in login page CTA to `/` |
 | 2026-04-03 | Initial documentation | Created `README.md` and `WEBSITE-CONTEXT.md` to track project context and changes |
